@@ -119,6 +119,24 @@
   .cartridge.paper .slot{background:var(--gold);font-size:30px}
   .cartridge.paper:nth-child(2) .slot{background:var(--neon)}
 
+  .certs{display:grid;gap:22px}
+  .cartridge.cert .slot{background:var(--lime);font-size:26px}
+  .cert-frame{position:relative;margin-top:16px;border:3px solid var(--edge);background:#0a0518;box-shadow:0 6px 0 var(--edge);cursor:zoom-in;overflow:hidden;transition:.15s}
+  .cert-frame:hover{border-color:var(--neon);box-shadow:0 6px 0 var(--edge),0 0 20px rgba(0,246,255,.25)}
+  .cert-frame img{display:block;width:100%;height:auto;-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+  .cert-shield{position:absolute;inset:0;z-index:2;background:transparent}
+  .cert-hint{font-family:'Press Start 2P';font-size:8px;color:var(--neon);margin-top:12px;text-align:center}
+  .cert-meta{font-family:'Press Start 2P';font-size:8px;color:var(--gold);margin-top:10px}
+  .cert-wrap{grid-column:1/-1}
+  .lightbox{position:fixed;inset:0;z-index:10000;background:rgba(13,2,33,.95);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox .lb-inner{position:relative;max-width:min(1100px,100%);max-height:100%}
+  .lightbox img{display:block;max-width:100%;max-height:88vh;border:3px solid var(--neon);box-shadow:0 0 30px rgba(0,246,255,.4);-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+  .lightbox .cert-shield{z-index:3}
+  .lb-close{position:fixed;top:16px;right:20px;z-index:10001;font-family:'Press Start 2P';font-size:10px;color:var(--magenta);border:3px solid var(--magenta);background:var(--bg);padding:10px 12px;cursor:pointer}
+  .lb-close:hover{background:var(--magenta);color:#fff}
+  @media print{.cert-frame img,.lightbox{display:none !important}}
+
   footer{text-align:center;padding:40px 20px 60px;color:var(--dim)}
   footer .gameover{font-family:'Press Start 2P';font-size:10px;color:var(--magenta);margin-bottom:12px}
   footer small{font-size:18px}
@@ -142,6 +160,7 @@
           <li><a href="#skills" data-i18n="nav_skills">COMPETENCES</a></li>
           <li><a href="#projects" data-i18n="nav_projects">PROJETS</a></li>
           <li><a href="#papers" data-i18n="nav_papers">REVUES</a></li>
+          <li><a href="#certifications" data-i18n="nav_certs">CERTIFS</a></li>
           <li><a href="#contact" data-i18n="nav_contact">CONTACT</a></li>
           <li><a href="CV_AMINE_DAAM_DEV_FULL_STACK.pdf" download data-i18n="nav_cv">CV &#9660;</a></li>
         </ul>
@@ -321,8 +340,42 @@
   </div>
 </section>
 
+<section id="certifications">
+  <div class="stage-label pixel">STAGE 5 <span class="ar">&#9656;</span> <span data-i18n="stage_certs">TROPHEES</span></div>
+  <h2 class="title pixel" data-i18n="certs_title">CERTIFICATIONS</h2>
+  <div class="certs">
+
+    <article class="cartridge cert">
+      <div class="slot pixel">&#127942;</div>
+      <div class="cart-body">
+        <h3>HackerRank &mdash; Java (Basic)</h3>
+        <div class="stack">Java &middot; HackerRank Skill Certification</div>
+        <p data-i18n="cert1_desc"></p>
+        <div class="score pixel"><span data-i18n="cert1_meta">&#9733; OBTENUE LE 05/11/2026 &middot; ID 476A19539828</span></div>
+      </div>
+      <div class="play-wrap">
+        <button type="button" class="play" id="certOpen" data-i18n="cert_view">&#9654; VOIR</button>
+      </div>
+    </article>
+
+  </div>
+  <div class="cert-frame" id="certFrame" role="button" tabindex="0" aria-label="Certificat HackerRank Java (Basic)">
+    <img src="certif_hackerrank_java_basic.jpg" alt="Certificat HackerRank Java (Basic) - Amine Daamouch" draggable="false" loading="lazy">
+    <div class="cert-shield"></div>
+  </div>
+  <div class="cert-hint" data-i18n="cert_hint">&#128269; CLIQUER POUR AGRANDIR</div>
+</section>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button type="button" class="lb-close" id="lbClose">&#10005; ESC</button>
+  <div class="lb-inner">
+    <img src="certif_hackerrank_java_basic.jpg" alt="Certificat HackerRank Java (Basic)" draggable="false">
+    <div class="cert-shield"></div>
+  </div>
+</div>
+
 <section id="contact">
-  <div class="stage-label pixel">STAGE 5 <span class="ar">&#9656;</span> <span data-i18n="stage_contact">MULTIJOUEUR</span></div>
+  <div class="stage-label pixel">STAGE 6 <span class="ar">&#9656;</span> <span data-i18n="stage_contact">MULTIJOUEUR</span></div>
   <h2 class="title pixel" data-i18n="contact_title">CONTACT</h2>
   <div class="contact">
     <p data-i18n="contact_p"></p>
@@ -375,6 +428,10 @@
       paper_authors2:"\u2605 CO-AUTEUR \u00B7 UKM x Amine DAAMOUCH",
       dl_pdf:"\u25BC PDF",
       dl_pdf2:"\u25BC PDF",
+      nav_certs:"CERTIFS", stage_certs:"TROPHEES", certs_title:"CERTIFICATIONS",
+      cert1_desc:"Certification officielle HackerRank validant les fondamentaux du langage Java.",
+      cert1_meta:"★ OBTENUE LE 05/11/2026 · ID 476A19539828",
+      cert_view:"▶ VOIR", cert_hint:"🔍 CLIQUER POUR AGRANDIR",
       stage_contact:"MULTIJOUEUR", contact_title:"CONTACT",
       contact_p:"Insere une piece \u2014 parlons ensemble.",
       footer_small:"\u00A9 2026 Amine Daamouch"
@@ -411,6 +468,10 @@
       paper_authors2:"\u2605 CO-AUTHOR \u00B7 UKM x Amine DAAMOUCH",
       dl_pdf:"\u25BC PDF",
       dl_pdf2:"\u25BC PDF",
+      nav_certs:"CERTS", stage_certs:"TROPHIES", certs_title:"CERTIFICATIONS",
+      cert1_desc:"Official HackerRank certification validating core Java language skills.",
+      cert1_meta:"★ EARNED 05 NOV 2026 · ID 476A19539828",
+      cert_view:"▶ VIEW", cert_hint:"🔍 CLICK TO ENLARGE",
       stage_contact:"MULTIPLAYER", contact_title:"CONTACT",
       contact_p:"Insert a coin \u2014 let's talk together.",
       footer_small:"\u00A9 2026 Amine Daamouch \u00B7 Coded without a framework \u00B7 Insert coin to continue"
@@ -441,6 +502,23 @@
     else if((navigator.language||'').toLowerCase().indexOf('en') === 0) start = 'en';
   }catch(e){}
   setLang(start);
+
+  // Certificat : consultation uniquement (pas de telechargement)
+  (function(){
+    var lb=document.getElementById('lightbox');
+    function open(){lb.classList.add('open');lb.setAttribute('aria-hidden','false');}
+    function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');}
+    var frame=document.getElementById('certFrame');
+    frame.addEventListener('click',open);
+    frame.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+    document.getElementById('certOpen').addEventListener('click',open);
+    lb.addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    [frame,lb].forEach(function(el){
+      el.addEventListener('contextmenu',function(e){e.preventDefault();});
+      el.addEventListener('dragstart',function(e){e.preventDefault();});
+    });
+  })();
 
   var seq=[38,38,40,40,37,39,37,39,66,65];var i=0;
   document.addEventListener('keydown',function(e){

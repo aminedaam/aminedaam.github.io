@@ -119,15 +119,17 @@
   .cartridge.paper .slot{background:var(--gold);font-size:30px}
   .cartridge.paper:nth-child(2) .slot{background:var(--neon)}
 
-  .certs{display:grid;gap:22px}
-  .cartridge.cert .slot{background:var(--lime);font-size:26px}
-  .cert-frame{position:relative;width:100%;max-width:240px;margin:16px auto 0;border:3px solid var(--edge);background:#0a0518;box-shadow:0 6px 0 var(--edge);cursor:zoom-in;overflow:hidden;transition:.15s}
-  .cert-frame:hover{border-color:var(--neon);box-shadow:0 6px 0 var(--edge),0 0 20px rgba(0,246,255,.25)}
-  .cert-frame img{display:block;width:100%;height:auto;-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+  .badges{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .badge-card{background:var(--panel);border:3px solid var(--edge);padding:18px;box-shadow:0 6px 0 var(--edge);display:flex;flex-direction:column;align-items:center;text-align:center;transition:.15s}
+  .badge-card:hover{transform:translateY(-3px);border-color:var(--neon);box-shadow:0 9px 0 var(--edge),0 0 20px rgba(0,246,255,.25)}
+  .badge-img{position:relative;width:100%;aspect-ratio:1/1;border:3px solid var(--edge);background:#0a0518;display:grid;place-items:center;overflow:hidden;cursor:zoom-in;margin-bottom:16px}
+  .badge-img img{display:block;width:100%;height:100%;object-fit:contain;-webkit-user-drag:none;user-select:none;-webkit-user-select:none;pointer-events:none}
+  .badge-img.empty{cursor:default;border-style:dashed}
+  .badge-img .soon{font-family:'Press Start 2P';font-size:9px;color:var(--dim);line-height:1.8;padding:10px}
   .cert-shield{position:absolute;inset:0;z-index:2;background:transparent}
-  .cert-hint{font-family:'Press Start 2P';font-size:8px;color:var(--neon);margin-top:12px;text-align:center}
-  .cert-meta{font-family:'Press Start 2P';font-size:8px;color:var(--gold);margin-top:10px}
-  .cert-wrap{grid-column:1/-1}
+  .badge-card h3{font-family:'Press Start 2P';font-size:10px;color:#fff;line-height:1.6;margin-bottom:8px}
+  .badge-card .issuer{color:var(--lime);font-size:19px;margin-bottom:6px}
+  .badge-card .cert-meta{font-family:'Press Start 2P';font-size:8px;color:var(--gold);line-height:1.8}
   .lightbox{position:fixed;inset:0;z-index:10000;background:rgba(13,2,33,.95);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
   .lightbox.open{display:flex}
   .lightbox .lb-inner{position:relative;max-width:min(1100px,100%);max-height:100%}
@@ -135,7 +137,7 @@
   .lightbox .cert-shield{z-index:3}
   .lb-close{position:fixed;top:16px;right:20px;z-index:10001;font-family:'Press Start 2P';font-size:10px;color:var(--magenta);border:3px solid var(--magenta);background:var(--bg);padding:10px 12px;cursor:pointer}
   .lb-close:hover{background:var(--magenta);color:#fff}
-  @media print{.cert-frame img,.lightbox{display:none !important}}
+  @media print{.badge-img img,.lightbox{display:none !important}}
 
   footer{text-align:center;padding:40px 20px 60px;color:var(--dim)}
   footer .gameover{font-family:'Press Start 2P';font-size:10px;color:var(--magenta);margin-bottom:12px}
@@ -145,6 +147,8 @@
     .cartridge{grid-template-columns:1fr;text-align:center;justify-items:center}
     .slot{margin-bottom:6px}.play-wrap{width:100%}.hud{justify-content:center}
   }
+  @media(max-width:860px){.badges{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.badges{grid-template-columns:1fr}}
   @media(prefers-reduced-motion:reduce){*{animation:none !important;scroll-behavior:auto}}
 </style>
 </head>
@@ -213,15 +217,16 @@
       <h3><span data-i18n="sk_fw">&#128737; FRAMEWORKS</span></h3>
       <div class="tags">
         <span class="tag">Spring / Boot</span><span class="tag">Hibernate</span><span class="tag">API REST</span>
-        <span class="tag" data-i18n="tag_micro">Micro-services</span><span class="tag">React</span><span class="tag">Angular</span>
-        <span class="tag">Flutter</span><span class="tag">Maven</span><span class="tag">Gradle</span>
+        <span class="tag" data-i18n="tag_micro">Micro-services</span><span class="tag">Angular</span><span class="tag">React</span>
+        <span class="tag">Flutter</span>
       </div>
     </div>
 
     <div class="skill-card">
       <h3><span data-i18n="sk_db">&#128190; BASES DE DONNEES</span></h3>
       <div class="tags">
-        <span class="tag">SQL Server</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">Neo4j</span>
+        <span class="tag">SQL Server</span><span class="tag">PostgreSQL</span>
+        <span class="tag">MongoDB</span><span class="tag">Neo4j</span>
       </div>
     </div>
 
@@ -238,13 +243,16 @@
       <div class="tags">
         <span class="tag">Git / GitHub</span><span class="tag">GitLab</span><span class="tag">Jira</span>
         <span class="tag">Confluence</span><span class="tag">IntelliJ</span><span class="tag">VS Code</span>
+        <span class="tag">Maven</span><span class="tag">Gradle</span><span class="tag">Swagger</span>
+        <span class="tag">Docker</span><span class="tag">Kafka</span>
       </div>
     </div>
 
     <div class="skill-card">
       <h3><span data-i18n="sk_method">&#128208; METHODO</span></h3>
       <div class="tags">
-        <span class="tag" data-i18n="tag_agile">Agile / Scrum</span><span class="tag">SOLID</span><span class="tag">TDD</span><span class="tag">TE2E</span>
+        <span class="tag" data-i18n="tag_agile">Agile / Scrum</span><span class="tag">SOLID</span>
+        <span class="tag">TE2E</span><span class="tag">Microservices</span>
       </div>
     </div>
 
@@ -273,7 +281,7 @@
       <div class="slot pixel">B</div>
       <div class="cart-body">
         <h3>CESI Eat</h3>
-        <div class="stack">Java &middot; Spring Boot &middot; Hibernate &middot; SQL Server &middot; React</div>
+        <div class="stack">Java &middot; Spring Boot &middot; Hibernate &middot; SQL Server &middot; Next.js</div>
         <p data-i18n="proj_b"></p>
         <div class="score pixel"><span data-i18n="score_b">&#9733; HIGH SCORE &middot; FULL STACK</span></div>
       </div>
@@ -343,36 +351,15 @@
 <section id="certifications">
   <div class="stage-label pixel">STAGE 5 <span class="ar">&#9656;</span> <span data-i18n="stage_certs">TROPHEES</span></div>
   <h2 class="title pixel" data-i18n="certs_title">CERTIFICATIONS</h2>
-  <div class="certs">
-
-    <article class="cartridge cert">
-      <div class="slot pixel">&#127942;</div>
-      <div class="cart-body">
-        <h3>HackerRank &mdash; Java (Basic)</h3>
-        <div class="stack">Java &middot; HackerRank Skill Certification</div>
-        <p data-i18n="cert1_desc"></p>
-        <div class="score pixel"><span data-i18n="cert1_meta">&#9733; OBTENUE LE 05/11/2026 &middot; ID 476A19539828</span></div>
-      </div>
-      <div class="play-wrap">
-        <button type="button" class="play" id="certOpen" data-i18n="cert_view">&#9654; VOIR</button>
-      </div>
-    </article>
-
+  <div class="badges" id="badges"></div>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" class="lb-close" id="lbClose">&#10005; ESC</button>
+    <div class="lb-inner">
+      <img id="lbImg" src="" alt="" draggable="false">
+      <div class="cert-shield"></div>
+    </div>
   </div>
-  <div class="cert-frame" id="certFrame" role="button" tabindex="0" aria-label="Certificat HackerRank Java (Basic)">
-    <img src="certif_hackerrank_java_basic.png" alt="Certificat HackerRank Java (Basic) - Amine Daamouch" draggable="false" loading="lazy">
-    <div class="cert-shield"></div>
-  </div>
-  <div class="cert-hint" data-i18n="cert_hint">&#128269; CLIQUER POUR AGRANDIR</div>
 </section>
-
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button type="button" class="lb-close" id="lbClose">&#10005; ESC</button>
-  <div class="lb-inner">
-    <img src="certif_hackerrank_java_basic.png" alt="Certificat HackerRank Java (Basic)" draggable="false">
-    <div class="cert-shield"></div>
-  </div>
-</div>
 
 <section id="contact">
   <div class="stage-label pixel">STAGE 6 <span class="ar">&#9656;</span> <span data-i18n="stage_contact">MULTIJOUEUR</span></div>
@@ -429,9 +416,7 @@
       dl_pdf:"\u25BC PDF",
       dl_pdf2:"\u25BC PDF",
       nav_certs:"CERTIFS", stage_certs:"TROPHEES", certs_title:"CERTIFICATIONS",
-      cert1_desc:"Certification officielle HackerRank validant les fondamentaux du langage Java.",
-      cert1_meta:"★ OBTENUE LE 05/11/2026 · ID 476A19539828",
-      cert_view:"▶ VOIR", cert_hint:"🔍 CLIQUER POUR AGRANDIR",
+      cert_earned:"OBTENUE LE", cert_soon:"BADGE A VENIR", cert_zoom:"Agrandir le badge",
       stage_contact:"MULTIJOUEUR", contact_title:"CONTACT",
       contact_p:"Insere une piece \u2014 parlons ensemble.",
       footer_small:"\u00A9 2026 Amine Daamouch"
@@ -469,14 +454,54 @@
       dl_pdf:"\u25BC PDF",
       dl_pdf2:"\u25BC PDF",
       nav_certs:"CERTS", stage_certs:"TROPHIES", certs_title:"CERTIFICATIONS",
-      cert1_desc:"Official HackerRank certification validating core Java language skills.",
-      cert1_meta:"★ EARNED 05 NOV 2026 · ID 476A19539828",
-      cert_view:"▶ VIEW", cert_hint:"🔍 CLICK TO ENLARGE",
+      cert_earned:"EARNED", cert_soon:"BADGE COMING SOON", cert_zoom:"Enlarge badge",
       stage_contact:"MULTIPLAYER", contact_title:"CONTACT",
       contact_p:"Insert a coin \u2014 let's talk together.",
       footer_small:"\u00A9 2026 Amine Daamouch \u00B7 Coded without a framework \u00B7 Insert coin to continue"
     }
   };
+
+  // ================= CERTIFICATIONS =================
+  // Pour ajouter un badge : copie une ligne, change le titre / l'organisme / la date / l'ID
+  // et mets le nom du fichier image dans "img" (a cote de index.html).
+  // Laisse img:"" tant que le badge n'est pas pret : un emplacement "A VENIR" s'affiche.
+  var CERTS = [
+    { title:"HackerRank \u2014 Java (Basic)",   issuer:"HackerRank",               date:"05/11/2026", id:"476A19539828", img:"certif_hackerrank_java_basic.png" },
+    { title:"Claude 101 \u2014 Claude Academy", issuer:"Anthropic Claude Academy", date:"14/11/2026", id:"", img:"claude-academy-badge-claude-101.png" },
+    { title:"Apache Kafka Fundamentals",         issuer:"Confluent",  date:"15/11/2026", id:"", img:"Confluent Apache Kafka certification.png" }
+  ];
+
+  function renderCerts(lang){
+    var dict = I18N[lang] || I18N.fr;
+    var box = document.getElementById('badges');
+    box.textContent = '';
+    CERTS.forEach(function(c){
+      var card = document.createElement('article'); card.className = 'badge-card';
+      var frame = document.createElement('div'); frame.className = 'badge-img' + (c.img ? '' : ' empty');
+      if(c.img){
+        var im = document.createElement('img'); im.src = c.img; im.alt = c.title; im.draggable = false; im.loading = 'lazy';
+        var sh = document.createElement('div'); sh.className = 'cert-shield';
+        frame.setAttribute('role','button'); frame.tabIndex = 0; frame.setAttribute('aria-label', dict.cert_zoom + ' : ' + c.title);
+        frame.appendChild(im); frame.appendChild(sh);
+        var openIt = function(){ openLightbox(c.img, c.title); };
+        frame.addEventListener('click', openIt);
+        frame.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openIt(); } });
+        frame.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+      } else {
+        var soon = document.createElement('div'); soon.className = 'soon'; soon.textContent = '\uD83C\uDFC6 ' + dict.cert_soon;
+        frame.appendChild(soon);
+      }
+      var h = document.createElement('h3'); h.textContent = c.title;
+      var iss = document.createElement('div'); iss.className = 'issuer'; iss.textContent = c.issuer;
+      card.appendChild(frame); card.appendChild(h); card.appendChild(iss);
+      if(c.date){
+        var m = document.createElement('div'); m.className = 'cert-meta';
+        m.textContent = '\u2605 ' + dict.cert_earned + ' ' + c.date + (c.id ? ' \u00B7 ID ' + c.id : '');
+        card.appendChild(m);
+      }
+      box.appendChild(card);
+    });
+  }
 
   function setLang(lang){
     const dict = I18N[lang] || I18N.fr;
@@ -485,6 +510,7 @@
       if(dict[k] !== undefined) el.textContent = dict[k];
     });
     document.documentElement.lang = lang;
+    renderCerts(lang);
     document.querySelectorAll('.lang button').forEach(function(b){
       b.classList.toggle('on', b.dataset.lang === lang);
     });
@@ -503,22 +529,14 @@
   }catch(e){}
   setLang(start);
 
-  // Certificat : consultation uniquement (pas de telechargement)
-  (function(){
-    var lb=document.getElementById('lightbox');
-    function open(){lb.classList.add('open');lb.setAttribute('aria-hidden','false');}
-    function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');}
-    var frame=document.getElementById('certFrame');
-    frame.addEventListener('click',open);
-    frame.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
-    document.getElementById('certOpen').addEventListener('click',open);
-    lb.addEventListener('click',close);
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
-    [frame,lb].forEach(function(el){
-      el.addEventListener('contextmenu',function(e){e.preventDefault();});
-      el.addEventListener('dragstart',function(e){e.preventDefault();});
-    });
-  })();
+  // Badges : consultation uniquement (pas de telechargement)
+  var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lbImg');
+  function openLightbox(src, alt){ lbImg.src=src; lbImg.alt=alt||''; lb.classList.add('open'); lb.setAttribute('aria-hidden','false'); }
+  function closeLightbox(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); }
+  lb.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+  lb.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+  lb.addEventListener('dragstart', function(e){ e.preventDefault(); });
 
   var seq=[38,38,40,40,37,39,37,39,66,65];var i=0;
   document.addEventListener('keydown',function(e){
